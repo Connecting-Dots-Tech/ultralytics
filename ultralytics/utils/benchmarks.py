@@ -84,7 +84,10 @@ def benchmark(
 
     y = []
     t0 = time.time()
-    for i, (name, format, suffix, cpu, gpu) in export_formats(upto).iterrows():  # index, (name, format, suffix, CPU, GPU)
+    count = 0
+    for i, (name, format, suffix, cpu, gpu) in export_formats().iterrows():  # index, (name, format, suffix, CPU, GPU)
+        if count == upto:
+            break
         emoji, filename = "❌", None  # export defaults
         try:
             # Checks
@@ -139,6 +142,7 @@ def benchmark(
                 assert type(e) is AssertionError, f"Benchmark failure for {name}: {e}"
             LOGGER.warning(f"ERROR ❌️ Benchmark failure for {name}: {e}")
             y.append([name, emoji, round(file_size(filename), 1), None, None, None])  # mAP, t_inference
+        count += 1
 
     # Print results
     check_yolo(device=device)  # print system info
