@@ -94,7 +94,7 @@ from ultralytics.utils.ops import Profile
 from ultralytics.utils.torch_utils import TORCH_1_13, get_latest_opset, select_device, smart_inference_mode
 
 
-def export_formats():
+def export_formats(upto):
     """YOLOv8 export formats."""
     import pandas  # scope for faster 'import ultralytics'
 
@@ -112,7 +112,7 @@ def export_formats():
         ["TensorFlow.js", "tfjs", "_web_model", True, False],
         ["PaddlePaddle", "paddle", "_paddle_model", True, True],
         ["NCNN", "ncnn", "_ncnn_model", True, True],
-    ]
+    ][:upto]
     return pandas.DataFrame(x, columns=["Format", "Argument", "Suffix", "CPU", "GPU"])
 
 
