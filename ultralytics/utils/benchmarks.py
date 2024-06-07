@@ -47,7 +47,7 @@ from ultralytics.utils.torch_utils import select_device
 
 
 def benchmark(
-    model=WEIGHTS_DIR / "yolov8n.pt", data=None, imgsz=160, half=False, int8=False, device="cpu", verbose=False
+    model=WEIGHTS_DIR / "yolov8n.pt", data=None, imgsz=160, half=False, int8=False, device="cpu", verbose=False, upto=13
 ):
     """
     Benchmark a YOLO model across different formats for speed and accuracy.
@@ -84,7 +84,7 @@ def benchmark(
 
     y = []
     t0 = time.time()
-    for i, (name, format, suffix, cpu, gpu) in export_formats().iterrows():  # index, (name, format, suffix, CPU, GPU)
+    for i, (name, format, suffix, cpu, gpu) in export_formats(upto).iterrows():  # index, (name, format, suffix, CPU, GPU)
         emoji, filename = "❌", None  # export defaults
         try:
             # Checks
